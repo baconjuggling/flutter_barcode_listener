@@ -106,8 +106,8 @@ class _BarcodeKeyboardListenerState extends State<BarcodeKeyboardListener> {
   }
 
   void _keyBoardCallback(RawKeyEvent keyEvent) {
-    print('------------------');
-    print('${keyEvent.data.logicalKey.keyLabel}');
+    bool isShiftPressed = keyEvent.isShiftPressed;
+    print('--- isShiftPressed: $isShiftPressed');
     if (keyEvent.logicalKey.keyId > 255 &&
         keyEvent.data.logicalKey != LogicalKeyboardKey.enter) return;
     if ((!_useKeyDownEvent && keyEvent is RawKeyUpEvent) ||
