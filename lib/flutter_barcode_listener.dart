@@ -105,8 +105,8 @@ class _BarcodeKeyboardListenerState extends State<BarcodeKeyboardListener> {
     _scannedChars.add(charCode);
   }
 
+  bool isShiftPressed = false;
   void _keyBoardCallback(RawKeyEvent keyEvent) {
-    bool isShiftPressed = false;
     if (keyEvent.data.isShiftPressed) {
       isShiftPressed = true;
     }
