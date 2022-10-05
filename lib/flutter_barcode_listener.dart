@@ -111,7 +111,17 @@ class _BarcodeKeyboardListenerState extends State<BarcodeKeyboardListener> {
     if ((!_useKeyDownEvent && keyEvent is RawKeyUpEvent) ||
         (_useKeyDownEvent && keyEvent is RawKeyDownEvent)) {
       if (keyEvent.data is RawKeyEventDataAndroid) {
-        _controller.sink.add(keyEvent.character);
+        print('------------------');
+        print('${keyEvent.data.logicalKey.keyLabel}');
+
+        if (keyEvent.data.isShiftPressed) {
+          _controller.sink.add(String.fromCharCode(
+                  ((keyEvent.data) as RawKeyEventDataAndroid).codePoint)
+              .toUpperCase());
+        } else {
+          _controller.sink.add(String.fromCharCode(
+              ((keyEvent.data) as RawKeyEventDataAndroid).codePoint));
+        }
       } else if (keyEvent.data is RawKeyEventDataFuchsia) {
         _controller.sink.add(String.fromCharCode(
             ((keyEvent.data) as RawKeyEventDataFuchsia).codePoint));
