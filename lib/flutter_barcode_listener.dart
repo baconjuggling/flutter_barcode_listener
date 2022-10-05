@@ -106,17 +106,21 @@ class _BarcodeKeyboardListenerState extends State<BarcodeKeyboardListener> {
   }
 
   void _keyBoardCallback(RawKeyEvent keyEvent) {
-    bool isShiftPressed = keyEvent.isShiftPressed;
-    print('--- isShiftPressed: $isShiftPressed');
+    bool isShiftPressed = false;
+    if (keyEvent.data.isShiftPressed) {
+      isShiftPressed = true;
+    }
+
     if (keyEvent.logicalKey.keyId > 255 &&
         keyEvent.data.logicalKey != LogicalKeyboardKey.enter) return;
     if ((!_useKeyDownEvent && keyEvent is RawKeyUpEvent) ||
         (_useKeyDownEvent && keyEvent is RawKeyDownEvent)) {
       if (keyEvent.data is RawKeyEventDataAndroid) {
-        if (keyEvent.data.isShiftPressed) {
+        if (isShiftPressed) {
           _controller.sink.add(String.fromCharCode(
                   ((keyEvent.data) as RawKeyEventDataAndroid).codePoint)
               .toUpperCase());
+          isShiftPressed = false;
         } else {
           _controller.sink.add(String.fromCharCode(
               ((keyEvent.data) as RawKeyEventDataAndroid).codePoint));
