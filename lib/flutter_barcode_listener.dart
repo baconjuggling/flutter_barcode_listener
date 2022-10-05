@@ -111,7 +111,9 @@ class _BarcodeKeyboardListenerState extends State<BarcodeKeyboardListener> {
     if ((!_useKeyDownEvent && keyEvent is RawKeyUpEvent) ||
         (_useKeyDownEvent && keyEvent is RawKeyDownEvent)) {
       if (keyEvent.data is RawKeyEventDataAndroid) {
+        print('------------------');
         print('${keyEvent.data.logicalKey.keyLabel}');
+        print('------------------');
         if (keyEvent.data.isShiftPressed) {
           _controller.sink.add(String.fromCharCode(
                   ((keyEvent.data) as RawKeyEventDataAndroid).codePoint)
